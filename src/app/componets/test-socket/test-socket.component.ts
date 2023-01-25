@@ -22,7 +22,7 @@ export class TestSocketComponent implements OnInit {
   
   ngOnInit(): void {
     // this.socket = io('http://localhost:3000/');
-    this.socket = io('https://448ce46435d305.lhr.life');
+    this.socket = io('https://eee520e19ddc40.lhr.life');
 
     this.socket.on('messageBox', (res:any) => {
       this.url = res.message.includes('http') ? res.message : '';
