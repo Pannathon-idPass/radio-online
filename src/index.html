@@ -7,6 +7,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
+<script>
+  import { initializeApp } from "firebase/app";
+  import { getAnalytics } from "firebase/analytics";
+   
+  const firebaseConfig = {
+  apiKey: "AIzaSyD_tgX7tvHoxhQgB6YAGPab3h5cHolT3GQ",
+  authDomain: "radio-online-98500.firebaseapp.com",
+  projectId: "radio-online-98500",
+  storageBucket: "radio-online-98500.appspot.com",
+  messagingSenderId: "732386682251",
+  appId: "1:732386682251:web:ff01b2041c91f816543b8e",
+  measurementId: "G-YF867MC2V9"
+};
+
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
 <body>
   <app-root></app-root>
 </body>
