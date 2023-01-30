@@ -22,14 +22,16 @@ export class TestSocketComponent implements OnInit {
   
   ngOnInit(): void {
     // this.socket = io('http://localhost:3000/');
-    this.socket = io('https://eee520e19ddc40.lhr.life');
-
-    this.socket.on('messageBox', (res:any) => {
+    this.socket = io('https://backend-nodejs-production-28b9.up.railway.app/');
+      this.socket.on('messageBox', (res:any) => {
+     
+        
       this.url = res.message.includes('http') ? res.message : '';
-      this.messageBox.push({"message": "[" + res.username + "] " + res.message})
-      // var vid = document.getElementById("video").current;
-      console.log(this.messageBox);
-      
+      this.messageBox.push({"message": res.timeStramp + " " + "[" + res.username + "] " + res.message})
+      setTimeout(()=> {
+        const element:any = document.getElementById('chat');  
+        element.scrollTop = element.scrollHeight
+      },500)
     })
 
     this.socket.on('count', (res:any) => {
@@ -48,13 +50,12 @@ export class TestSocketComponent implements OnInit {
   }
 
   onClickSubmit(res:any) {
-    console.log(res);
     var data = {
       "username": res.username,
       "message": res.message,
-      "currentTime": res.currentTime
+      "timeStramp": this.getDateTime()
     }
-    this.socket.emit("message",data);
+    this.socket.emit("message", data);
   }
 
   urlSanitizer(url:string):SafeResourceUrl{
@@ -78,7 +79,17 @@ export class TestSocketComponent implements OnInit {
     }
     return ''
   }
+ 
 
+  getDateTime():any {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    return dd + '-' + mm +'-'+ yyyy
+  }
+
+  
 
   // getIframeYouTubeUrl(videoId: string): SafeResourceUrl {
   //   const url = this.urlCache.get(videoId);

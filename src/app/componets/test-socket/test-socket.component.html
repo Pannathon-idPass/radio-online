@@ -1,12 +1,15 @@
+
+<div class="container">
+
 <p>test-socket works! {{showCount}}</p>
 <form #MessageBox="ngForm" (ngSubmit)="onClickSubmit(MessageBox.value)" >
     <input type="number" name ="currentTime" placeholder="currentTime" ngModel>
     <br/>
-    <input type="text" name ="username" placeholder="username" ngModel>
+    <input type="text" name ="username" placeholder="ชื่อ" ngModel>
     <br/>
-    <input type="text" name="message" placeholder="message" ngModel>
+    <input type="text" name="message" placeholder="message/video" ngModel>
     <br/>
-    <input type="submit" value="submit">
+    <button class="sumbit-btn" type="submit" value="submit">Send</button>
 </form>
 <div *ngIf="url">
     <iframe id="video" [src]="urlSanitizer(url)"></iframe>
@@ -18,10 +21,10 @@
     <source [src]="urlSanitizer(url)" type="video/mp4">
 </video> -->
 
+</div>
 
-
-<div class="list-box">
+<div #chat id="chat" class="list-box">
     <ul class="message-box" id="message-box" *ngFor="let message of messageBox">
-        <li>{{ message.message }}</li>
+        <li> {{ message.message }}  </li>
     </ul>
 </div>

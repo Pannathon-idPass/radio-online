@@ -1,0 +1,21 @@
+.list-box {
+    overflow: auto;
+    min-height: 300px;
+    max-height: 400px;
+    max-width: 500px;
+    background-color: aquamarine;
+}
+
+.container {
+    max-width: 500px;
+    background-color:aliceblue
+}
+
+.message-box {
+    list-style-type: none;
+}
+
+.sumbit-btn {
+    width: 100px;
+    height: 60px;
+}
