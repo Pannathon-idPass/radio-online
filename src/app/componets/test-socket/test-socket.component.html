@@ -1,11 +1,17 @@
 
 <div class="container">
+<div style="display: inline;">
+    <div>>test-socket works!</div>
+    <div style="float: right;">
+        Ping: {{showCount}}
+    </div>
 
-<p>test-socket works! {{showCount}}</p>
+</div>
 <form #MessageBox="ngForm" (ngSubmit)="onClickSubmit(MessageBox.value)" >
-    <input type="number" name ="currentTime" placeholder="currentTime" ngModel>
+    <input type="datetime-local" name="datetime" placeholder="datetime" ngModel>   
+    <!-- <input type="date" name="time" placeholder="time" ngModel> -->
     <br/>
-    <input type="text" name ="username" placeholder="ชื่อ" ngModel>
+    <input type="text" name="username" placeholder="ชื่อ" ngModel>
     <br/>
     <input type="text" name="message" placeholder="message/video" ngModel>
     <br/>
@@ -13,6 +19,9 @@
 </form>
 <div *ngIf="url">
     <iframe id="video" [src]="urlSanitizer(url)"></iframe>
+</div>
+<div>
+    <img *ngIf="imageCapture != '' && imageCapture != null" [src]="imageCapture" style="width: 300px; height: 300px; border: 2px solid black;">  
 </div>
 <div *ngIf="url">
     <!-- <iframe [src]="urlSanitizer(url)" type="text/html"></iframe> -->

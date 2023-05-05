@@ -14,31 +14,53 @@ export class TestSocketComponent implements OnInit {
  playerSrc:any;
  messageBox:any = [];
  showCount:any;
- 
+ imageCapture:any;
+
   constructor(
     private sanitizer: DomSanitizer
   ) {
   }
   
   ngOnInit(): void {
-    // this.socket = io('http://localhost:3000/');
+    //  this.socket = io('http://192.168.0.9:8080/');
     this.socket = io('https://backend-nodejs-production-28b9.up.railway.app/');
-      this.socket.on('messageBox', (res:any) => {
      
-        
+    this.socket.on('getHistoryBox', (res:any) => {
+      this.messageBox = res;
+    })
+
+    this.socket.on('casting', (base64:any) => {
+      console.log(typeof(base64));
+      
+      console.log(base64);
+      
+      this.imageCapture = "data:image/png;base64, " + base64;
+    })
+    
+      this.socket.on('messageBox', (res:any) => {
       this.url = res.message.includes('http') ? res.message : '';
+      this.socket.emit("insertHistory", {"message": res.timeStramp + " " + "[" + res.username + "] " + res.message});
       this.messageBox.push({"message": res.timeStramp + " " + "[" + res.username + "] " + res.message})
+      // this.socket.emit
       setTimeout(()=> {
         const element:any = document.getElementById('chat');  
         element.scrollTop = element.scrollHeight
       },500)
     })
 
+    setInterval(() => {
+      const timeNow = Date.now()
+      this.socket.emit("count", timeNow);
+    }, 1000);    
+    
     this.socket.on('count', (res:any) => {
-      this.showCount = res;
+      const duration = Date.now() - res;
+      this.showCount = duration;
     })
 
   }
+
+  
 
   detectVideoUrl() {
     // const types = new Map([["jpg", "img"], ["gif", "img"], ["mp4", "video"], ["3gp", "video"]])
@@ -53,8 +75,10 @@ export class TestSocketComponent implements OnInit {
     var data = {
       "username": res.username,
       "message": res.message,
+      "schedule": res.datetime,
       "timeStramp": this.getDateTime()
     }
+    console.log(data);
     this.socket.emit("message", data);
   }
 
@@ -89,7 +113,9 @@ export class TestSocketComponent implements OnInit {
     return dd + '-' + mm +'-'+ yyyy
   }
 
-  
+  timeToSchedule(date:any) {
+      
+  }  
 
   // getIframeYouTubeUrl(videoId: string): SafeResourceUrl {
   //   const url = this.urlCache.get(videoId);
