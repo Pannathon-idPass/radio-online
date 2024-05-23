@@ -23,7 +23,7 @@ export class TestSocketComponent implements OnInit {
   
   ngOnInit(): void {
     //  this.socket = io('http://192.168.0.9:8080/');
-    this.socket = io('https://backend-nodejs-production-28b9.up.railway.app/');
+    this.socket = io('http://45.141.26.73:3030/');
      
     this.socket.on('getHistoryBox', (res:any) => {
       this.messageBox = res;
